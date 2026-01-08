@@ -1,4 +1,4 @@
-import './../index.scss';
+import './styles.scss';
 
 type Props = {
   onFilesAdded: (files: File[]) => void;

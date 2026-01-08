@@ -1,0 +1,19 @@
+@use './../../colors.scss' as *;
+
+.theme-switcher-container {
+    display: flex;
+    padding-right: 10px;
+    opacity: .5;
+    transition: all ease .15s;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    .theme-switcher-button {
+        background-color: transparent;
+        cursor: pointer;
+        border: 0px;
+        color: var(--fontColor);
+    }
+}

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
-import FileDropzone from './components/FileDropzone';
+import FileDropzone from './components/FileDropzone/FileDropzone';
 import DraftEmail from './components/DraftEmail/DraftEmail';
-import ThemeSwitcher from './components/ThemeSwitcher';
+import ThemeSwitcher from './components/ThemeSwitcher/ThemeSwitcher';
 import type { FileEmailDraft } from './types';
 import { createDraft } from './services/gmail';
 import './index.scss';
@@ -75,9 +75,7 @@ function App() {
 
         {/* right */}
         <div className="header-right">
-          <div className="theme-switcher-container">
-            <ThemeSwitcher />
-          </div>
+          <ThemeSwitcher />
         </div>
       </div>
 
@@ -90,6 +88,7 @@ function App() {
           />
         )}
 
+        {/* Google sign-in button */}
         {!accessToken && (
           <div className={`sign-in-button-container ${drafts.length > 0 && 'showing-bulk-panel'}`}>
             <button className="sign-in-button" onClick={() => login()}>
@@ -113,10 +112,9 @@ function App() {
         )}
 
         {/* dropzone */}
-        {/* {accessToken &&  */}
         <FileDropzone onFilesAdded={addFiles} />
-        {/* } */}
 
+        {/* Create drafts button */}
         {drafts.length > 0 && (
           <button className="create-drafts-button" onClick={createAllDrafts} disabled={loading}>
             {loading ? 'Creating drafts…' : 'Create Gmail Drafts'}

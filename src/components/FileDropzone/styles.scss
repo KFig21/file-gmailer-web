@@ -1,0 +1,57 @@
+@use './../../colors.scss' as *;
+
+// DROPZONE
+.dropzone-container {
+    display: flex;
+
+    .dropzone {
+        border: 2px dashed var(--primaryColor);
+        border-radius: 8px;
+        padding: 30px;
+        width: 500px;
+        max-width: 80vw;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .dropzone-text {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .dropzone-subtext {
+            font-size: 1rem;
+            opacity: .5;
+            font-style: italic;
+            padding: 0.5rem;
+        }
+
+        .dropzone-input-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            .dropzone-button {
+                background-color: var(--backgroundColor);
+                color: var(--fontColor);
+                border: solid 2px var(--borderColor);
+                padding: 0.6rem 1.2rem;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: .91rem;
+                font-weight: 500;
+                transition: all 0.15s ease;
+
+                &:hover,
+                &:active {
+                    background-color: var(--primaryColor);
+                    color: var(--fontOverPrimaryColor);
+                    border: solid 2px var(--primaryColor);
+                }
+            }
+        }
+    }
+}
