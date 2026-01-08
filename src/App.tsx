@@ -83,14 +83,6 @@ function App() {
 
       {/*  content */}
       <div className="content">
-        {!accessToken && (
-          <div className="sign-in-button-container">
-            <button className="sign-in-button" onClick={() => login()}>
-              Sign in with Google
-            </button>
-          </div>
-        )}
-
         {/* email options */}
         {drafts.length > 0 && (
           <EmailOptions
@@ -98,20 +90,32 @@ function App() {
           />
         )}
 
+        {!accessToken && (
+          <div className={`sign-in-button-container ${drafts.length > 0 && 'showing-bulk-panel'}`}>
+            <button className="sign-in-button" onClick={() => login()}>
+              Sign in with Google
+            </button>
+          </div>
+        )}
+
         {/* email */}
-        <div className="emails-container">
-          {drafts.map((draft, index) => (
-            <DraftEmail
-              key={`${draft.file.name}-${index}`}
-              draft={draft}
-              onChange={(updated) => updateDraft(index, updated)}
-              onDelete={() => deleteDraft(index)}
-            />
-          ))}
-        </div>
+        {drafts.length > 0 && (
+          <div className="emails-container">
+            {drafts.map((draft, index) => (
+              <DraftEmail
+                key={`${draft.file.name}-${index}`}
+                draft={draft}
+                onChange={(updated) => updateDraft(index, updated)}
+                onDelete={() => deleteDraft(index)}
+              />
+            ))}
+          </div>
+        )}
 
         {/* dropzone */}
-        {accessToken && <FileDropzone onFilesAdded={addFiles} />}
+        {/* {accessToken &&  */}
+        <FileDropzone onFilesAdded={addFiles} />
+        {/* } */}
 
         {drafts.length > 0 && (
           <button className="create-drafts-button" onClick={createAllDrafts} disabled={loading}>
