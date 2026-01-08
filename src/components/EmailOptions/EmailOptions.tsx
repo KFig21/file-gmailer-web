@@ -109,7 +109,7 @@ export default function EmailOptions({ onApply }: Props) {
           </label>
 
           {/* BODY */}
-          <label className="option-row">
+          <label className="option-row option-body">
             <label className="checkbox-wrapper">
               <input
                 type="checkbox"

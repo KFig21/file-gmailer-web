@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import FileDropzone from './components/FileDropzone';
-import FileEmailRow from './components/FileEmailRow';
+import DraftEmail from './components/DraftEmail/DraftEmail';
 import ThemeSwitcher from './components/ThemeSwitcher';
 import type { FileEmailDraft } from './types';
 import { createDraft } from './services/gmail';
-import './styles.scss';
+import './index.scss';
 import EmailOptions from './components/EmailOptions/EmailOptions';
 
 function App() {
@@ -57,6 +57,10 @@ function App() {
     }
   };
 
+  const deleteDraft = (index: number) => {
+    setDrafts((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="main">
       {/* Header */}
@@ -87,9 +91,6 @@ function App() {
           </div>
         )}
 
-        {/* dropzone */}
-        {accessToken && <FileDropzone onFilesAdded={addFiles} />}
-
         {/* email options */}
         {drafts.length > 0 && (
           <EmailOptions
@@ -100,13 +101,17 @@ function App() {
         {/* email */}
         <div className="emails-container">
           {drafts.map((draft, index) => (
-            <FileEmailRow
+            <DraftEmail
               key={`${draft.file.name}-${index}`}
               draft={draft}
               onChange={(updated) => updateDraft(index, updated)}
+              onDelete={() => deleteDraft(index)}
             />
           ))}
         </div>
+
+        {/* dropzone */}
+        {accessToken && <FileDropzone onFilesAdded={addFiles} />}
 
         {drafts.length > 0 && (
           <button className="create-drafts-button" onClick={createAllDrafts} disabled={loading}>

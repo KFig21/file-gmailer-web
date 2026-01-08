@@ -1,7 +1,7 @@
 import { useTheme } from '../context/ThemeContext';
 import Brightness5Icon from '@mui/icons-material/Brightness5';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import './../styles.scss';
+import './../index.scss';
 
 export default function ThemeSwitcher() {
   const { theme, setTheme, themes } = useTheme();

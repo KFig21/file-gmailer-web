@@ -5,15 +5,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    // padding: 1rem;
+    background-color: var(--headerBgColor);
+    border-bottom: solid 1px var(--borderColor);
+    backdrop-filter: blur(2px);
+    position: sticky;
+    top: 0;
+    z-index: 2;
 
     .email-options-container {
         border-radius: 8px;
         padding: 1rem 1rem;
-        margin: 1rem 0;
         width: 100%;
-        max-width: 750px;
-        background-color: var(--emailBgColor);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -36,7 +38,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1rem 1rem 0.5rem 3rem;
+            padding: 0rem;
             gap: 0.5rem;
 
             &.closed {
@@ -50,7 +52,7 @@
                 display: grid;
                 grid-template-columns: auto 120px 1fr;
                 gap: 0.5rem;
-                align-items: flex-start;
+                align-items: center;
 
                 .checkbox-wrapper {
                     display: flex;

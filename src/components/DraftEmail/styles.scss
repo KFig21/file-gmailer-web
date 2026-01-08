@@ -1,0 +1,66 @@
+@use './../../colors.scss' as *;
+
+.emails-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    padding: 1rem;
+
+    .email-container {
+        display: flex;
+        flex-direction: column;
+        padding: .75rem 2rem 1rem 2rem;
+        background-color: var(--emailBgColor);
+        border: solid 1px var(--borderColor);
+        border-radius: 8px;
+        gap: 8px;
+        width: 100%;
+        max-width: 500px;
+        position: relative;
+
+        input,
+        textarea {
+            background-color: var(--backgroundColor);
+            color: var(--fontColor);
+            padding: 0.5rem 1rem;
+            border: solid 1px var(--borderColor);
+            border-radius: 8px;
+        }
+
+        textarea {
+            height: 100px;
+            min-height: 50px;
+        }
+
+        .delete-draft-container {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            opacity: .5;
+            cursor: pointer;
+            transition: all ease .15s;
+
+            &:hover {
+                opacity: 1;
+                color: crimson;
+            }
+
+            .trash-icon {
+                transform: scale(.8);
+            }
+        }
+
+        .email-container-attachment {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+
+            .attachment-icon {
+                transform: rotate(45deg);
+            }
+        }
+    }
+}
