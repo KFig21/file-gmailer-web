@@ -1,4 +1,5 @@
 import type { FileEmailDraft } from '../types';
+import './../styles.scss';
 
 type Props = {
   draft: FileEmailDraft;
@@ -7,7 +8,7 @@ type Props = {
 
 export default function FileEmailRow({ draft, onChange }: Props) {
   return (
-    <div style={{ borderBottom: '1px solid #ddd', padding: 10 }}>
+    <div className="email-container">
       <strong>{draft.file.name}</strong>
 
       <input
