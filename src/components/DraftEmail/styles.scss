@@ -71,9 +71,9 @@
             flex-direction: row;
 
             .email-option-button {
-                height: 16px;
-                width: 16px;
-                border-radius: 16px;
+                height: 14px;
+                width: 14px;
+                border-radius: 14px;
                 background-color: var(--borderColor);
                 position: relative;
                 display: flex;
@@ -97,6 +97,22 @@
             .email-container-options {
                 .email-option-button {
 
+                    // TRUE MAC OS COLORS
+                    // &.expand-email {
+                    //     background-color: #61c554;
+                    //     color: #61c554;
+                    // }
+
+                    // &.collapse-email {
+                    //     background-color: #f4bf4f;
+                    //     color: #f4bf4f;
+                    // }
+
+                    // &.delete-email {
+                    //     background-color: #ec6a5e;
+                    //     color: #ec6a5e;
+                    // }
+
                     &.expand-email {
                         background-color: rgb(21, 187, 57);
                         color: rgb(21, 187, 57);
@@ -117,7 +133,7 @@
                 &:hover {
                     .email-option-button {
                         .email-option-icon {
-                            color: rgba(0, 0, 0, 0.7);
+                            color: rgba(20, 20, 20, 0.75);
                         }
                     }
                 }
