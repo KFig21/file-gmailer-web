@@ -1,3 +1,5 @@
+// src/context/ThemeContext.tsx
+
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
@@ -16,15 +18,24 @@ export const useTheme = () => {
   return ctx;
 };
 
+const THEME_STORAGE_KEY = 'app-theme';
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const themes = ['dark', 'light'];
-  const [theme, setThemeState] = useState('dark');
+
+  // 👇 initialize from localStorage
+  const [theme, setThemeState] = useState<string>(() => {
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+    return storedTheme && themes.includes(storedTheme) ? storedTheme : 'dark';
+  });
 
   const setTheme = (newTheme: string) => {
     setThemeState(newTheme);
+    localStorage.setItem(THEME_STORAGE_KEY, newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
 
+  // 👇 ensure theme is applied on first render
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
