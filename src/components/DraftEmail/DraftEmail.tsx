@@ -1,7 +1,7 @@
 import type { FileEmailDraft } from '../../types';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import './styles.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CloseIcon,
   ExitFullScreenIcon,
@@ -9,6 +9,11 @@ import {
   MinusIcon,
   PlusIcon,
 } from '../../elements/WindowOptionIcons/Icons';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import { MenuBar } from './components/MenuBar';
+import { Color } from '@tiptap/extension-color';
+import { TextStyle } from '@tiptap/extension-text-style';
 
 type Props = {
   draft: FileEmailDraft;
@@ -19,6 +24,39 @@ type Props = {
 export default function DraftEmail({ draft, onChange, onDelete }: Props) {
   const [collapse, setCollapse] = useState(false);
   const [full, setFull] = useState(false);
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Color,
+      // Just use .extend() directly on the imported TextStyle
+      TextStyle.extend({
+        addAttributes() {
+          return {
+            fontSize: {
+              default: null,
+              parseHTML: (element) => element.style.fontSize,
+              renderHTML: (attributes) => {
+                if (!attributes.fontSize) return {};
+                return { style: `font-size: ${attributes.fontSize}` };
+              },
+            },
+          };
+        },
+      }),
+    ],
+    content: draft.body,
+    onUpdate: ({ editor }) => {
+      onChange({ ...draft, body: editor.getHTML() });
+    },
+  });
+
+  useEffect(() => {
+    if (editor && draft.body !== editor.getHTML()) {
+      // Change 'false' to '{ emitUpdate: false }'
+      editor.commands.setContent(draft.body || '', { emitUpdate: false });
+    }
+  }, [draft.body, editor]);
 
   const onClickFullScreen = () => {
     setFull(!full);
@@ -75,12 +113,17 @@ export default function DraftEmail({ draft, onChange, onDelete }: Props) {
           onChange={(e) => onChange({ ...draft, subject: e.target.value })}
         />
 
+        <div className="tiptap-editor-container">
+          <MenuBar editor={editor} />
+          <EditorContent editor={editor} className="tiptap-content" />
+        </div>
+
         {/* BODY input */}
-        <textarea
+        {/* <textarea
           placeholder="Body"
           value={draft.body ?? ''}
           onChange={(e) => onChange({ ...draft, body: e.target.value })}
-        />
+        /> */}
       </div>
     </div>
   );
