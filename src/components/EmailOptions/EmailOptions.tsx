@@ -1,8 +1,10 @@
 // src/components/EmailOptions/EmailOptions.tsx
-
-import { useState } from 'react';
-import './styles.scss';
+import { useEffect, useState } from 'react';
+import { EditorContent } from '@tiptap/react';
+import { useTiptapConfig } from '../../hooks/useTiptapConfig';
+import { MenuBar } from '../Shared/MenuBar';
 import CollapseToggle from '../../elements/collapseToggle/CollapseToggle';
+import './styles.scss';
 
 type BulkPatch = {
   to?: string;
@@ -28,14 +30,23 @@ export default function EmailOptions({ onApply }: Props) {
 
   const [open, setOpen] = useState(false);
 
+  // Initialize Tiptap for Bulk Options
+  const editor = useTiptapConfig(body, (html) => setBody(html));
+
   const apply = () => {
     onApply({
       ...(useSingleTo && { to }),
       ...(useSingleCc && { cc }),
       ...(useSingleSubject && { subject }),
-      ...(useSingleBody && { body }),
+      ...(useSingleBody && { body }), // 'body' is now the HTML string from Tiptap
     });
   };
+
+  useEffect(() => {
+    if (editor && body !== editor.getHTML()) {
+      editor.commands.setContent(body || '', { emitUpdate: false });
+    }
+  }, [body, editor]);
 
   return (
     <div className="email-options-wrapper">
@@ -109,7 +120,7 @@ export default function EmailOptions({ onApply }: Props) {
           </label>
 
           {/* BODY */}
-          <label className="option-row option-body">
+          <div className="option-row option-body">
             <label className="checkbox-wrapper">
               <input
                 type="checkbox"
@@ -119,13 +130,13 @@ export default function EmailOptions({ onApply }: Props) {
               <span className="checkbox" />
             </label>
             <span className="checkbox-label">Single body</span>
-            <textarea
-              placeholder="Email body"
-              disabled={!useSingleBody}
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
-          </label>
+
+            {/* Moved the editor OUTSIDE the label */}
+            <div className={`tiptap-editor-container ${!useSingleBody ? 'disabled' : ''}`}>
+              <MenuBar editor={editor} />
+              <EditorContent editor={editor} className="tiptap-content" />
+            </div>
+          </div>
 
           {/* apply button */}
           <button className="apply-button" onClick={apply}>

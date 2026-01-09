@@ -50,9 +50,14 @@
 
             .option-row {
                 display: grid;
-                grid-template-columns: auto 120px 1fr;
+                grid-template-columns: auto 120px 550px;
                 gap: 0.5rem;
                 align-items: center;
+
+                &.option-body {
+                    flex-direction: column; // Stack editor below the label
+                    align-items: flex-start;
+                }
 
                 .checkbox-wrapper {
                     display: flex;
@@ -60,6 +65,7 @@
                     gap: 0.5rem;
                     cursor: pointer;
                     user-select: none;
+                    height: 34px;
 
                     input {
                         position: absolute;
@@ -97,28 +103,23 @@
                         transform: scale(1);
                     }
 
-                    .checkbox-label {
-                        font-size: 0.9rem;
-                    }
+                }
+
+                .checkbox-label {
+                    font-size: 1rem;
+                    height: 34px;
+                    display: flex;
+                    align-items: center;
                 }
 
 
                 input[type='text'],
-                input[type='email'],
-                textarea {
+                input[type='email'] {
                     background-color: var(--backgroundColor);
                     color: var(--fontColor);
                     padding: 0.5rem 1rem;
                     border: solid 1px var(--borderColor);
                     border-radius: 8px;
-                    width: 500px;
-                    max-width: 500px;
-                    min-width: 500px;
-                }
-
-                textarea {
-                    height: 100px;
-                    min-height: 50px;
                 }
             }
 
