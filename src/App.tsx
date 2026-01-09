@@ -7,6 +7,8 @@ import type { FileEmailDraft } from './types';
 import { createDraft } from './services/gmail';
 import './index.scss';
 import EmailOptions from './components/EmailOptions/EmailOptions';
+import CreateDraftsButton from './components/CreateDraftsButton/CreateDraftsButton';
+import HeaderSignInButton from './components/HeaderSignInButton/HeaderSignInButton';
 
 function App() {
   const [drafts, setDrafts] = useState<FileEmailDraft[]>([]);
@@ -68,14 +70,7 @@ function App() {
         {/* left */}
         <div className="header-left">
           {/* Google sign-in button */}
-          <div className={`sign-in-button-container`}>
-            <button
-              className={`sign-in-button ${accessToken && 'has-token'}`}
-              onClick={() => login()}
-            >
-              {accessToken ? 'Switch account' : 'Sign in with Google'}
-            </button>
-          </div>
+          <HeaderSignInButton login={login} accessToken={accessToken} />
         </div>
 
         {/* center */}
@@ -91,14 +86,14 @@ function App() {
 
       {/*  content */}
       <div className="content">
-        {/* email options */}
+        {/* Email options */}
         {drafts.length > 0 && (
           <EmailOptions
             onApply={(patch) => setDrafts((prev) => prev.map((d) => ({ ...d, ...patch })))}
           />
         )}
 
-        {/* email */}
+        {/* Draft emails */}
         {drafts.length > 0 && (
           <div className={`emails-container`}>
             {drafts.map((draft, index) => (
@@ -116,11 +111,7 @@ function App() {
         <FileDropzone onFilesAdded={addFiles} isDrafts={drafts.length > 0} />
 
         {/* Create drafts button */}
-        {drafts.length > 0 && (
-          <button className="create-drafts-button" onClick={createAllDrafts} disabled={loading}>
-            {loading ? 'Creating drafts…' : 'Create Gmail Drafts'}
-          </button>
-        )}
+        {drafts.length > 0 && <CreateDraftsButton onClick={createAllDrafts} loading={loading} />}
       </div>
     </div>
   );
