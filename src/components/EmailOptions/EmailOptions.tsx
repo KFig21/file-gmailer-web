@@ -48,6 +48,20 @@ export default function EmailOptions({ onApply }: Props) {
     }
   }, [body, editor]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Example: Trigger on Meta (Cmd) + B or Ctrl + B
+      if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
+        // Prevent the browser's default "Bold" action if necessary
+        // e.preventDefault();
+        setOpen((prev) => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <div className="email-options-wrapper">
       <div className="email-options-container">
@@ -139,9 +153,15 @@ export default function EmailOptions({ onApply }: Props) {
           </div>
 
           {/* apply button */}
-          <button className="apply-button" onClick={apply}>
-            Apply to all emails
-          </button>
+          <label className="option-row">
+            <label className="checkbox-wrapper"></label>
+            <span className="checkbox-label"></span>
+            <div className="apply-button-container">
+              <button className="apply-button" onClick={apply}>
+                Apply to all emails
+              </button>
+            </div>
+          </label>
         </div>
       </div>
     </div>
