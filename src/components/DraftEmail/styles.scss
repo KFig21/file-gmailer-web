@@ -6,49 +6,121 @@
     align-items: center;
     gap: 24px;
     width: 100%;
-    // padding: 1rem;
 
     .email-container {
         display: flex;
         flex-direction: column;
-        padding: .75rem 2rem 1rem 2rem;
+        padding: .75rem 2rem 0.75rem 2rem;
         background-color: var(--emailBgColor);
         border: solid 1px var(--borderColor);
         border-radius: 8px;
-        gap: 8px;
         width: 100%;
         max-width: 500px;
         position: relative;
+        transition: all ease .5s;
 
-        input,
-        textarea {
-            background-color: var(--backgroundColor);
-            color: var(--fontColor);
-            padding: 0.5rem 1rem;
-            border: solid 1px var(--borderColor);
-            border-radius: 8px;
+        &.full {
+            width: 80vw;
+            max-width: 1000px;
+
+            .draft-content {
+
+                textarea {
+                    height: 250px;
+                    min-height: 250px;
+                    max-height: 500px;
+                    outline: none;
+                }
+            }
         }
 
-        textarea {
-            height: 100px;
-            min-height: 50px;
+        .draft-content {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+
+            &.collapse {
+                display: none;
+            }
+
+            input,
+            textarea {
+                background-color: var(--backgroundColor);
+                color: var(--fontColor);
+                padding: 0.5rem 1rem;
+                border: solid 1px var(--borderColor);
+                border-radius: 8px;
+            }
+
+            textarea {
+                height: 100px;
+                min-height: 50px;
+                max-height: 400px;
+                resize: vertical;
+            }
         }
 
-        .delete-draft-container {
+        .email-container-options {
             position: absolute;
             top: 8px;
             right: 8px;
-            opacity: .5;
             cursor: pointer;
-            transition: all ease .15s;
+            gap: 6px;
+            display: flex;
+            flex-direction: row;
 
-            &:hover {
-                opacity: 1;
-                color: crimson;
+            .email-option-button {
+                height: 16px;
+                width: 16px;
+                border-radius: 16px;
+                background-color: var(--borderColor);
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                inset: 0;
+                line-height: 1;
+                position: relative;
+
+                .email-option-icon {
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: transparent;
+                    position: absolute;
+                    transform: translate(0%, 6%);
+                }
             }
+        }
 
-            .trash-icon {
-                transform: scale(.8);
+        &:hover {
+            .email-container-options {
+                .email-option-button {
+
+                    &.expand-email {
+                        background-color: rgb(21, 187, 57);
+                        color: rgb(21, 187, 57);
+                    }
+
+                    &.collapse-email {
+                        background-color: rgb(255, 204, 0);
+                        color: rgb(255, 204, 0);
+                    }
+
+                    &.delete-email {
+                        background-color: rgb(244, 42, 82);
+                        color: rgb(244, 42, 82);
+                    }
+                }
+
+
+                &:hover {
+                    .email-option-button {
+                        .email-option-icon {
+                            color: rgba(0, 0, 0, 0.7);
+                        }
+                    }
+                }
             }
         }
 
