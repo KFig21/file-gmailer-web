@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface IconProps {
   size?: number | string;
   color?: string;
@@ -72,16 +70,7 @@ export const CloseIcon = ({
   </svg>
 );
 
-// 4. UNIFY / EXPAND (Two Triangles)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const UnfoldIcon = ({ size = 12, color = 'currentColor', className = '' }: IconProps) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M12 2L18 8H6L12 2Z" />
-    <path d="M12 22L6 16H18L12 22Z" />
-  </svg>
-);
-
-// 5. FULLSCREEN (Small triangles + Tight Gap)
+// 4. FULLSCREEN (Small triangles + Tight Gap)
 export const FullScreenIcon = ({
   size = 12,
   color = 'currentColor',
@@ -96,7 +85,7 @@ export const FullScreenIcon = ({
   </svg>
 );
 
-// 6. EXIT FULLSCREEN (Triangles pointing IN - Wider bases for larger appearance)
+// 5. EXIT FULLSCREEN (Triangles pointing IN - Wider bases for larger appearance)
 export const ExitFullScreenIcon = ({
   size = 12,
   color = 'currentColor',
