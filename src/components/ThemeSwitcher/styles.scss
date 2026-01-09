@@ -2,18 +2,24 @@
 
 .theme-switcher-container {
     display: flex;
-    padding-right: 10px;
-    opacity: .5;
-    transition: all ease .15s;
-
-    &:hover {
-        opacity: 1;
-    }
+    padding: 0px 10px;
+    height: 100%;
 
     .theme-switcher-button {
         background-color: transparent;
+        opacity: .5;
         cursor: pointer;
         border: 0px;
         color: var(--fontColor);
+        transition: all ease .15s;
     }
+
+    &:hover {
+
+        .theme-switcher-button {
+            opacity: 1;
+            color: var(--primaryColor);
+        }
+    }
+
 }

@@ -3,6 +3,11 @@
 // DROPZONE
 .dropzone-container {
     display: flex;
+    padding: 4rem 0rem 0rem 0rem;
+
+    &.showing-bulk-panel {
+        padding: 0rem;
+    }
 
     .dropzone {
         border: 2px dashed var(--primaryColor);

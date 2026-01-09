@@ -2,11 +2,12 @@ import './styles.scss';
 
 type Props = {
   onFilesAdded: (files: File[]) => void;
+  isDrafts: boolean;
 };
 
-export default function FileDropzone({ onFilesAdded }: Props) {
+export default function FileDropzone({ onFilesAdded, isDrafts }: Props) {
   return (
-    <div className="dropzone-container">
+    <div className={`dropzone-container ${isDrafts && 'showing-bulk-panel'}`}>
       <div
         onDrop={(e) => {
           e.preventDefault();

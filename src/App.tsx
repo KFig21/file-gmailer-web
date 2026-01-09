@@ -66,7 +66,17 @@ function App() {
       {/* Header */}
       <div className="header">
         {/* left */}
-        <div className="header-left"></div>
+        <div className="header-left">
+          {/* Google sign-in button */}
+          <div className={`sign-in-button-container`}>
+            <button
+              className={`sign-in-button ${accessToken && 'has-token'}`}
+              onClick={() => login()}
+            >
+              {accessToken ? 'Switch account' : 'Sign in with Google'}
+            </button>
+          </div>
+        </div>
 
         {/* center */}
         <div className="title-container">
@@ -88,18 +98,9 @@ function App() {
           />
         )}
 
-        {/* Google sign-in button */}
-        {!accessToken && (
-          <div className={`sign-in-button-container ${drafts.length > 0 && 'showing-bulk-panel'}`}>
-            <button className="sign-in-button" onClick={() => login()}>
-              Sign in with Google
-            </button>
-          </div>
-        )}
-
         {/* email */}
         {drafts.length > 0 && (
-          <div className="emails-container">
+          <div className={`emails-container`}>
             {drafts.map((draft, index) => (
               <DraftEmail
                 key={`${draft.file.name}-${index}`}
@@ -112,7 +113,7 @@ function App() {
         )}
 
         {/* dropzone */}
-        <FileDropzone onFilesAdded={addFiles} />
+        <FileDropzone onFilesAdded={addFiles} isDrafts={drafts.length > 0} />
 
         {/* Create drafts button */}
         {drafts.length > 0 && (
