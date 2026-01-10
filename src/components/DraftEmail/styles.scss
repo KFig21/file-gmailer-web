@@ -24,28 +24,28 @@
             background-color: var(--emailBgColor);
             border: solid 1px var(--borderColor);
             border-radius: 8px;
-            width: 100%;
-            max-width: 700px;
+            width: 80%;
+            max-width: 1000px;
             position: relative;
             transition: all ease .5s;
 
-            &.full {
-                width: 80vw;
-                max-width: 1000px;
+            // &.full {
+            //     width: 80vw;
+            //     max-width: 1000px;
 
-                .draft-content {
-                    .tiptap-editor-container {
-                        .tiptap-content {
-                            .tiptap {
-                                height: 400px;
-                                min-height: 400px;
-                                max-height: 500px;
-                                outline: none;
-                            }
-                        }
-                    }
-                }
-            }
+            //     .draft-content {
+            //         .tiptap-editor-container {
+            //             .tiptap-content {
+            //                 .tiptap {
+            //                     height: 400px;
+            //                     min-height: 400px;
+            //                     max-height: 500px;
+            //                     outline: none;
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
 
             .draft-content {
                 display: flex;
@@ -63,6 +63,17 @@
                     padding: 0.5rem 1rem;
                     border: solid 1px var(--borderColor);
                     border-radius: 8px;
+
+                    .tiptap-editor-container {
+                        .tiptap-content {
+                            .tiptap {
+                                height: 80% !important;
+                                min-height: 400px !important;
+                                max-height: 600px;
+                                outline: none;
+                            }
+                        }
+                    }
                 }
             }
 
