@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { useRef, useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import FileDropzone from './components/FileDropzone/FileDropzone';
 import DraftEmail from './components/DraftEmail/DraftEmail';
@@ -7,8 +8,8 @@ import type { FileEmailDraft } from './types';
 import { createDraft } from './services/gmail';
 import './index.scss';
 import EmailOptions from './components/EmailOptions/EmailOptions';
-import CreateDraftsButton from './components/CreateDraftsButton/CreateDraftsButton';
 import HeaderSignInButton from './components/HeaderSignInButton/HeaderSignInButton';
+import DraftNavigator from './components/DraftNavigator/DraftNavigator';
 
 function App() {
   const [drafts, setDrafts] = useState<FileEmailDraft[]>([]);
@@ -63,6 +64,30 @@ function App() {
     setDrafts((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // Sidebar scrolling functionality
+  const draftRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const scrollToDraft = (index: number) => {
+    setCurrentIndex(index);
+    draftRefs.current[index]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  };
+
+  const handleScroll = () => {
+    const visibleIndex = draftRefs.current.findIndex((el) => {
+      if (!el) return false;
+      const rect = el.getBoundingClientRect();
+      return rect.top >= 0 && rect.top < window.innerHeight / 2;
+    });
+
+    if (visibleIndex !== -1 && visibleIndex !== currentIndex) {
+      setCurrentIndex(visibleIndex);
+    }
+  };
+
   return (
     <div className="main">
       {/* Header */}
@@ -83,35 +108,53 @@ function App() {
           <ThemeSwitcher />
         </div>
       </div>
-
-      {/*  content */}
-      <div className="content">
-        {/* Email options */}
+      <div className="content-wrapper">
+        {/* SIDEBAR NAVIGATOR */}
         {drafts.length > 0 && (
-          <EmailOptions
-            onApply={(patch) => setDrafts((prev) => prev.map((d) => ({ ...d, ...patch })))}
+          <DraftNavigator
+            drafts={drafts}
+            onSelect={scrollToDraft}
+            activeIndex={currentIndex}
+            createAllDrafts={createAllDrafts}
+            onFilesAdded={addFiles}
+            loading={loading}
           />
         )}
 
-        {/* Draft emails */}
-        {drafts.length > 0 && (
-          <div className={`emails-container`}>
-            {drafts.map((draft, index) => (
-              <DraftEmail
-                key={`${draft.file.name}-${index}`}
-                draft={draft}
-                onChange={(updated) => updateDraft(index, updated)}
-                onDelete={() => deleteDraft(index)}
-              />
-            ))}
-          </div>
-        )}
+        {/*  content */}
+        <div className="content" onScroll={handleScroll}>
+          {/* Email options */}
+          {drafts.length > 0 && (
+            <EmailOptions
+              onApply={(patch) => setDrafts((prev) => prev.map((d) => ({ ...d, ...patch })))}
+            />
+          )}
 
-        {/* dropzone */}
-        <FileDropzone onFilesAdded={addFiles} isDrafts={drafts.length > 0} />
+          {/* Draft emails */}
+          {drafts.length > 0 && (
+            <div className={`emails-container`}>
+              {drafts.map((draft, index) => (
+                <DraftEmail
+                  key={`${draft.file.name}-${index}`}
+                  index={index}
+                  draft={draft}
+                  // @ts-ignore
+                  innerRef={(el) => (draftRefs.current[index] = el)}
+                  onChange={(updated) => updateDraft(index, updated)}
+                  onDelete={() => deleteDraft(index)}
+                />
+              ))}
+            </div>
+          )}
 
-        {/* Create drafts button */}
-        {drafts.length > 0 && <CreateDraftsButton onClick={createAllDrafts} loading={loading} />}
+          {/* dropzone */}
+          {drafts.length == 0 && (
+            <FileDropzone onFilesAdded={addFiles} isDrafts={drafts.length > 0} />
+          )}
+
+          {/* Create drafts button */}
+          {/* {drafts.length > 0 && <CreateDraftsButton onClick={createAllDrafts} loading={loading} />} */}
+        </div>
       </div>
     </div>
   );

@@ -1,27 +1,30 @@
 import type { FileEmailDraft } from '../../types';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import './styles.scss';
-import { useEffect, useState } from 'react';
-import {
-  CloseIcon,
-  ExitFullScreenIcon,
-  FullScreenIcon,
-  MinusIcon,
-  PlusIcon,
-} from '../../elements/WindowOptionIcons/Icons';
+import { useEffect } from 'react';
+// import {
+//   CloseIcon,
+//   ExitFullScreenIcon,
+//   FullScreenIcon,
+//   MinusIcon,
+//   PlusIcon,
+// } from '../../elements/WindowOptionIcons/Icons';
 import { EditorContent } from '@tiptap/react';
 import { MenuBar } from '../Shared/MenuBar';
 import { useTiptapConfig } from '../../hooks/useTiptapConfig';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
   draft: FileEmailDraft;
   onChange: (draft: FileEmailDraft) => void;
   onDelete: () => void;
+  innerRef?: React.Ref<HTMLDivElement>;
+  index: number;
 };
 
-export default function DraftEmail({ draft, onChange, onDelete }: Props) {
-  const [collapse, setCollapse] = useState(false);
-  const [full, setFull] = useState(false);
+export default function DraftEmail({ draft, onChange, onDelete, innerRef, index }: Props) {
+  // const [collapse, setCollapse] = useState(false);
+  // const [full, setFull] = useState(false);
 
   const editor = useTiptapConfig(draft.body ?? '', (html) => {
     onChange({ ...draft, body: html });
@@ -34,65 +37,76 @@ export default function DraftEmail({ draft, onChange, onDelete }: Props) {
     }
   }, [draft.body, editor]);
 
-  const onClickFullScreen = () => {
-    setFull(!full);
-    setCollapse(false);
-  };
+  // const onClickFullScreen = () => {
+  //   setFull(!full);
+  //   setCollapse(false);
+  // };
 
-  const onClickCollapse = () => {
-    setFull(false);
-    setCollapse(!collapse);
-  };
+  // const onClickCollapse = () => {
+  //   setFull(false);
+  //   setCollapse(!collapse);
+  // };
 
   return (
-    <div className={`email-container ${full && 'full'}`}>
-      <div className="email-container-options">
-        <div className="email-option-button expand-email" onClick={() => onClickFullScreen()}>
-          <div className="email-option-icon">
-            {full ? <ExitFullScreenIcon /> : <FullScreenIcon />}
+    <div className="email-wrapper" ref={innerRef} id={`draft-${index}`}>
+      <div className={`email-container`}>
+        {/* <div className="email-container-options">
+          <div className="email-option-button expand-email" onClick={() => onClickFullScreen()}>
+            <div className="email-option-icon">
+              {full ? <ExitFullScreenIcon /> : <FullScreenIcon />}
+            </div>
           </div>
-        </div>
-        <div className="email-option-button collapse-email" onClick={() => onClickCollapse()}>
-          <div className="email-option-icon">{collapse ? <PlusIcon /> : <MinusIcon />}</div>
-        </div>
-        <div className="email-option-button delete-email" onClick={onDelete}>
-          <div className="email-option-icon">
-            <CloseIcon />
+          <div className="email-option-button collapse-email" onClick={() => onClickCollapse()}>
+            <div className="email-option-icon">{collapse ? <PlusIcon /> : <MinusIcon />}</div>
           </div>
+          <div className="email-option-button delete-email" onClick={onDelete}>
+            <div className="email-option-icon">
+              <CloseIcon />
+            </div>
+          </div>
+        </div> */}
+        {/* delete draft */}
+        <div
+          className="delete-draft-container"
+          onClick={onDelete}
+          role="button"
+          aria-label="Delete draft"
+        >
+          <DeleteIcon className="trash-icon" />
         </div>
-      </div>
 
-      {/* attachment name */}
-      <div className="email-container-attachment">
-        <AttachFileIcon className="attachment-icon" />
-        <div className="email-container-attachmen-name">{draft.file.name}</div>
-      </div>
-      <div className={`draft-content ${collapse && 'collapse'}`}>
-        {/* TO input */}
-        <input
-          placeholder="To"
-          value={draft.to ?? ''}
-          onChange={(e) => onChange({ ...draft, to: e.target.value })}
-        />
+        {/* attachment name */}
+        <div className="email-container-attachment">
+          <AttachFileIcon className="attachment-icon" />
+          <div className="email-container-attachmen-name">{draft.file.name}</div>
+        </div>
+        <div className={`draft-content`}>
+          {/* TO input */}
+          <input
+            placeholder="To"
+            value={draft.to ?? ''}
+            onChange={(e) => onChange({ ...draft, to: e.target.value })}
+          />
 
-        {/* CC input */}
-        <input
-          placeholder="CC"
-          value={draft.cc ?? ''}
-          onChange={(e) => onChange({ ...draft, cc: e.target.value })}
-        />
+          {/* CC input */}
+          <input
+            placeholder="CC"
+            value={draft.cc ?? ''}
+            onChange={(e) => onChange({ ...draft, cc: e.target.value })}
+          />
 
-        {/* SUBJECT input */}
-        <input
-          placeholder="Subject"
-          value={draft.subject ?? ''}
-          onChange={(e) => onChange({ ...draft, subject: e.target.value })}
-        />
+          {/* SUBJECT input */}
+          <input
+            placeholder="Subject"
+            value={draft.subject ?? ''}
+            onChange={(e) => onChange({ ...draft, subject: e.target.value })}
+          />
 
-        {/* BODY input */}
-        <div className="tiptap-editor-container">
-          <MenuBar editor={editor} />
-          <EditorContent editor={editor} className="tiptap-content" />
+          {/* BODY input */}
+          <div className="tiptap-editor-container">
+            <MenuBar editor={editor} />
+            <EditorContent editor={editor} className="tiptap-content" />
+          </div>
         </div>
       </div>
     </div>

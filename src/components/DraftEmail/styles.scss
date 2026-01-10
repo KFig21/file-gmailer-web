@@ -1,4 +1,5 @@
 @use './../../colors.scss' as *;
+@use './../../index.scss' as *;
 
 .emails-container {
     display: flex;
@@ -7,142 +8,170 @@
     gap: 24px;
     width: 100%;
 
-    .email-container {
+    .email-wrapper {
         display: flex;
-        flex-direction: column;
-        padding: .75rem 2rem 0.75rem 2rem;
-        background-color: var(--emailBgColor);
-        border: solid 1px var(--borderColor);
-        border-radius: 8px;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - $headerHeight);
         width: 100%;
-        max-width: 500px;
-        position: relative;
-        transition: all ease .5s;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
 
-        &.full {
-            width: 80vw;
-            max-width: 1000px;
-
-            .draft-content {
-                .tiptap-editor-container {
-                    .tiptap-content {
-                        .tiptap {
-                            height: 250px;
-                            min-height: 250px;
-                            max-height: 500px;
-                            outline: none;
-                        }
-                    }
-                }
-            }
-        }
-
-        .draft-content {
+        .email-container {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-top: 8px;
+            padding: .75rem 2rem 0.75rem 2rem;
+            background-color: var(--emailBgColor);
+            border: solid 1px var(--borderColor);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            transition: all ease .5s;
 
-            &.collapse {
-                display: none;
-            }
+            &.full {
+                width: 80vw;
+                max-width: 1000px;
 
-            input {
-                background-color: var(--backgroundColor);
-                color: var(--fontColor);
-                padding: 0.5rem 1rem;
-                border: solid 1px var(--borderColor);
-                border-radius: 8px;
-            }
-        }
-
-        .email-container-options {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            cursor: pointer;
-            gap: 6px;
-            display: flex;
-            flex-direction: row;
-
-            .email-option-button {
-                height: 14px;
-                width: 14px;
-                border-radius: 14px;
-                background-color: var(--borderColor);
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                inset: 0;
-                line-height: 1;
-                position: relative;
-
-                .email-option-icon {
-                    font-size: 14px;
-                    font-weight: 700;
-                    color: transparent;
-                    position: absolute;
-                    transform: translate(0%, 6%);
-                }
-            }
-        }
-
-        &:hover {
-            .email-container-options {
-                .email-option-button {
-
-                    // TRUE MAC OS COLORS
-                    // &.expand-email {
-                    //     background-color: #61c554;
-                    //     color: #61c554;
-                    // }
-
-                    // &.collapse-email {
-                    //     background-color: #f4bf4f;
-                    //     color: #f4bf4f;
-                    // }
-
-                    // &.delete-email {
-                    //     background-color: #ec6a5e;
-                    //     color: #ec6a5e;
-                    // }
-
-                    &.expand-email {
-                        background-color: rgb(21, 187, 57);
-                        color: rgb(21, 187, 57);
-                    }
-
-                    &.collapse-email {
-                        background-color: rgb(255, 204, 0);
-                        color: rgb(255, 204, 0);
-                    }
-
-                    &.delete-email {
-                        background-color: rgb(244, 42, 82);
-                        color: rgb(244, 42, 82);
-                    }
-                }
-
-
-                &:hover {
-                    .email-option-button {
-                        .email-option-icon {
-                            color: rgba(20, 20, 20, 0.75);
+                .draft-content {
+                    .tiptap-editor-container {
+                        .tiptap-content {
+                            .tiptap {
+                                height: 400px;
+                                min-height: 400px;
+                                max-height: 500px;
+                                outline: none;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        .email-container-attachment {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 6px;
+            .draft-content {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                margin-top: 8px;
 
-            .attachment-icon {
-                transform: rotate(45deg);
+                &.collapse {
+                    display: none;
+                }
+
+                input {
+                    background-color: var(--backgroundColor);
+                    color: var(--fontColor);
+                    padding: 0.5rem 1rem;
+                    border: solid 1px var(--borderColor);
+                    border-radius: 8px;
+                }
+            }
+
+            .delete-draft-container {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                opacity: .5;
+                cursor: pointer;
+                transition: all ease .15s;
+
+                &:hover {
+                    opacity: 1;
+                    color: crimson;
+                }
+
+                .trash-icon {
+                    transform: scale(.8);
+                }
+            }
+
+            // .email-container-options {
+            //     position: absolute;
+            //     top: 8px;
+            //     right: 8px;
+            //     cursor: pointer;
+            //     gap: 6px;
+            //     display: flex;
+            //     flex-direction: row;
+
+            //     .email-option-button {
+            //         height: 14px;
+            //         width: 14px;
+            //         border-radius: 14px;
+            //         background-color: var(--borderColor);
+            //         position: relative;
+            //         display: flex;
+            //         align-items: center;
+            //         justify-content: center;
+            //         inset: 0;
+            //         line-height: 1;
+            //         position: relative;
+
+            //         .email-option-icon {
+            //             font-size: 14px;
+            //             font-weight: 700;
+            //             color: transparent;
+            //             position: absolute;
+            //             transform: translate(0%, 6%);
+            //         }
+            //     }
+            // }
+
+            // &:hover {
+            //     .email-container-options {
+            //         .email-option-button {
+
+            //             // TRUE MAC OS COLORS
+            //             // &.expand-email {
+            //             //     background-color: #61c554;
+            //             //     color: #61c554;
+            //             // }
+
+            //             // &.collapse-email {
+            //             //     background-color: #f4bf4f;
+            //             //     color: #f4bf4f;
+            //             // }
+
+            //             // &.delete-email {
+            //             //     background-color: #ec6a5e;
+            //             //     color: #ec6a5e;
+            //             // }
+
+            //             &.expand-email {
+            //                 background-color: rgb(21, 187, 57);
+            //                 color: rgb(21, 187, 57);
+            //             }
+
+            //             &.collapse-email {
+            //                 background-color: rgb(255, 204, 0);
+            //                 color: rgb(255, 204, 0);
+            //             }
+
+            //             &.delete-email {
+            //                 background-color: rgb(244, 42, 82);
+            //                 color: rgb(244, 42, 82);
+            //             }
+            //         }
+
+
+            //         &:hover {
+            //             .email-option-button {
+            //                 .email-option-icon {
+            //                     color: rgba(20, 20, 20, 0.75);
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+
+            .email-container-attachment {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+
+                .attachment-icon {
+                    transform: rotate(45deg);
+                }
             }
         }
     }
