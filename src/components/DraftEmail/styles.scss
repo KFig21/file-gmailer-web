@@ -20,168 +20,111 @@
         .email-container {
             display: flex;
             flex-direction: column;
-            padding: .75rem 2rem 0.75rem 2rem;
-            background-color: var(--emailBgColor);
+            background-color: var(--draftBgColor);
             border: solid 1px var(--borderColor);
-            border-radius: 8px;
             width: 80%;
             max-width: 1000px;
             position: relative;
             transition: all ease .5s;
+            overflow: hidden;
+            box-shadow: 10px 10px 0px 0px var(--draftShadowColor);
 
-            // &.full {
-            //     width: 80vw;
-            //     max-width: 1000px;
-
-            //     .draft-content {
-            //         .tiptap-editor-container {
-            //             .tiptap-content {
-            //                 .tiptap {
-            //                     height: 400px;
-            //                     min-height: 400px;
-            //                     max-height: 500px;
-            //                     outline: none;
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-
-            .draft-content {
+            .draft-header {
                 display: flex;
-                flex-direction: column;
-                gap: 8px;
-                margin-top: 8px;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--primaryColor);
+                width: 100%;
 
-                &.collapse {
-                    display: none;
+                .email-container-attachment {
+                    display: flex;
+                    flex: 2;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 6px;
+                    color: var(--fontOverPrimaryColor);
+                    padding: .75rem 1rem;
+
+                    .attachment-icon {
+                        transform: rotate(45deg);
+                    }
                 }
 
-                input {
-                    background-color: var(--backgroundColor);
-                    color: var(--fontColor);
-                    padding: 0.5rem 1rem;
-                    border: solid 1px var(--borderColor);
-                    border-radius: 8px;
+                .delete-draft-container {
+                    opacity: .4;
+                    cursor: pointer;
+                    transition: all ease .15s;
+                    height: 24px;
+                    width: 24px;
+                    padding-right: 12px;
+                    color: var(--fontOverPrimaryColor);
 
-                    .tiptap-editor-container {
-                        .tiptap-content {
-                            .tiptap {
-                                height: 80% !important;
-                                min-height: 400px !important;
-                                max-height: 600px;
-                                outline: none;
-                            }
-                        }
+                    &:hover {
+                        opacity: 1;
                     }
                 }
             }
 
-            .delete-draft-container {
-                position: absolute;
-                top: 8px;
-                right: 8px;
-                opacity: .5;
-                cursor: pointer;
-                transition: all ease .15s;
-
-                &:hover {
-                    opacity: 1;
-                    color: crimson;
-                }
-
-                .trash-icon {
-                    transform: scale(.8);
-                }
-            }
-
-            // .email-container-options {
-            //     position: absolute;
-            //     top: 8px;
-            //     right: 8px;
-            //     cursor: pointer;
-            //     gap: 6px;
-            //     display: flex;
-            //     flex-direction: row;
-
-            //     .email-option-button {
-            //         height: 14px;
-            //         width: 14px;
-            //         border-radius: 14px;
-            //         background-color: var(--borderColor);
-            //         position: relative;
-            //         display: flex;
-            //         align-items: center;
-            //         justify-content: center;
-            //         inset: 0;
-            //         line-height: 1;
-            //         position: relative;
-
-            //         .email-option-icon {
-            //             font-size: 14px;
-            //             font-weight: 700;
-            //             color: transparent;
-            //             position: absolute;
-            //             transform: translate(0%, 6%);
-            //         }
-            //     }
-            // }
-
-            // &:hover {
-            //     .email-container-options {
-            //         .email-option-button {
-
-            //             // TRUE MAC OS COLORS
-            //             // &.expand-email {
-            //             //     background-color: #61c554;
-            //             //     color: #61c554;
-            //             // }
-
-            //             // &.collapse-email {
-            //             //     background-color: #f4bf4f;
-            //             //     color: #f4bf4f;
-            //             // }
-
-            //             // &.delete-email {
-            //             //     background-color: #ec6a5e;
-            //             //     color: #ec6a5e;
-            //             // }
-
-            //             &.expand-email {
-            //                 background-color: rgb(21, 187, 57);
-            //                 color: rgb(21, 187, 57);
-            //             }
-
-            //             &.collapse-email {
-            //                 background-color: rgb(255, 204, 0);
-            //                 color: rgb(255, 204, 0);
-            //             }
-
-            //             &.delete-email {
-            //                 background-color: rgb(244, 42, 82);
-            //                 color: rgb(244, 42, 82);
-            //             }
-            //         }
-
-
-            //         &:hover {
-            //             .email-option-button {
-            //                 .email-option-icon {
-            //                     color: rgba(20, 20, 20, 0.75);
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-
-            .email-container-attachment {
+            .draft-content {
                 display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 6px;
+                flex-direction: column;
 
-                .attachment-icon {
-                    transform: rotate(45deg);
+                .draft-input-wrapper {
+                    display: grid;
+                    grid-template-columns: 100px auto;
+                    padding: 0;
+                    border-bottom: solid 1px var(--borderColor);
+                    background-color: var(--backgroundColor);
+
+                    .draft-input-name {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        padding-left: 1rem;
+                        font-size: 0.9rem;
+                        background-color: var(--draftBgColor);
+                        border-right: solid 1px var(--borderColor);
+                    }
+
+                    input {
+                        background-color: var(--backgroundColor);
+                        color: var(--fontColor);
+                        padding: 0.5rem 1rem;
+                        border: none;
+
+                        &:focus,
+                        &:active {
+                            outline: none;
+                            background-color: var(--draftBgColor);
+                        }
+                    }
+                }
+
+                input[type='text'] {
+                    background-color: var(--backgroundColor);
+                    color: var(--fontColor);
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    border-bottom: solid 1px var(--borderColor);
+
+                    &:focus,
+                    &:active {
+                        outline: none;
+                        background-color: var(--draftBgColor);
+                    }
+
+                }
+
+                .tiptap-editor-container {
+                    .tiptap-content {
+                        .tiptap {
+                            height: 80% !important;
+                            min-height: 400px !important;
+                            max-height: 600px;
+                            outline: none;
+                            padding: 1rem;
+                        }
+                    }
                 }
             }
         }

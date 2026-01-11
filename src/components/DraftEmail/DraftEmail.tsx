@@ -37,70 +37,56 @@ export default function DraftEmail({ draft, onChange, onDelete, innerRef, index 
     }
   }, [draft.body, editor]);
 
-  // const onClickFullScreen = () => {
-  //   setFull(!full);
-  //   setCollapse(false);
-  // };
-
-  // const onClickCollapse = () => {
-  //   setFull(false);
-  //   setCollapse(!collapse);
-  // };
-
   return (
     <div className="email-wrapper" ref={innerRef} id={`draft-${index}`}>
       <div className={`email-container`}>
-        {/* <div className="email-container-options">
-          <div className="email-option-button expand-email" onClick={() => onClickFullScreen()}>
-            <div className="email-option-icon">
-              {full ? <ExitFullScreenIcon /> : <FullScreenIcon />}
-            </div>
-          </div>
-          <div className="email-option-button collapse-email" onClick={() => onClickCollapse()}>
-            <div className="email-option-icon">{collapse ? <PlusIcon /> : <MinusIcon />}</div>
-          </div>
-          <div className="email-option-button delete-email" onClick={onDelete}>
-            <div className="email-option-icon">
-              <CloseIcon />
-            </div>
-          </div>
-        </div> */}
-        {/* delete draft */}
-        <div
-          className="delete-draft-container"
-          onClick={onDelete}
-          role="button"
-          aria-label="Delete draft"
-        >
-          <DeleteIcon className="trash-icon" />
-        </div>
-
         {/* attachment name */}
-        <div className="email-container-attachment">
-          <AttachFileIcon className="attachment-icon" />
-          <div className="email-container-attachmen-name">{draft.file.name}</div>
+        <div className="draft-header">
+          <div className="email-container-attachment">
+            <AttachFileIcon className="attachment-icon" />
+            <div className="email-container-attachmen-name">{draft.file.name}</div>
+          </div>
+          {/* delete draft */}
+          <div
+            className="delete-draft-container"
+            onClick={onDelete}
+            role="button"
+            aria-label="Delete draft"
+          >
+            <DeleteIcon className="trash-icon" />
+          </div>
         </div>
         <div className={`draft-content`}>
           {/* TO input */}
-          <input
-            placeholder="To"
-            value={draft.to ?? ''}
-            onChange={(e) => onChange({ ...draft, to: e.target.value })}
-          />
+          <div className="draft-input-wrapper">
+            <div className="draft-input-name">To:</div>
+            <input
+              placeholder="name@mail.com"
+              value={draft.to ?? ''}
+              onChange={(e) => onChange({ ...draft, to: e.target.value })}
+            />
+          </div>
 
           {/* CC input */}
-          <input
-            placeholder="CC"
-            value={draft.cc ?? ''}
-            onChange={(e) => onChange({ ...draft, cc: e.target.value })}
-          />
+          <div className="draft-input-wrapper">
+            <div className="draft-input-name">CC:</div>
+            <input
+              placeholder="another-name@mail.com"
+              value={draft.cc ?? ''}
+              onChange={(e) => onChange({ ...draft, cc: e.target.value })}
+            />
+          </div>
 
           {/* SUBJECT input */}
-          <input
-            placeholder="Subject"
-            value={draft.subject ?? ''}
-            onChange={(e) => onChange({ ...draft, subject: e.target.value })}
-          />
+
+          <div className="draft-input-wrapper">
+            <div className="draft-input-name">Subject:</div>
+            <input
+              placeholder="Urgent"
+              value={draft.subject ?? ''}
+              onChange={(e) => onChange({ ...draft, subject: e.target.value })}
+            />
+          </div>
 
           {/* BODY input */}
           <div className="tiptap-editor-container">

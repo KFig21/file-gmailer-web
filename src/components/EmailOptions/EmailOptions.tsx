@@ -146,7 +146,7 @@ export default function EmailOptions({ onApply }: Props) {
             <span className="checkbox-label">Single body</span>
 
             {/* Moved the editor OUTSIDE the label */}
-            <div className={`tiptap-editor-container ${!useSingleBody ? 'disabled' : ''}`}>
+            <div className={`tiptap-editor-container bulk ${!useSingleBody ? 'disabled' : ''}`}>
               <MenuBar editor={editor} />
               <EditorContent editor={editor} className="tiptap-content" />
             </div>

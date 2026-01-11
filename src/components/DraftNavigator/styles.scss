@@ -10,6 +10,7 @@
     flex-direction: column;
     border-right: 1px solid var(--borderColor);
     background-color: var(--backgroundColor);
+    z-index: 2;
 
     /* ---------- TOP & BOTTOM ---------- */
     .sidebar-top,
@@ -23,19 +24,21 @@
         cursor: pointer;
         transition: all ease .15s;
 
-        &:hover {
-            background-color: var(--primaryColor);
-            color: var(--fontOverPrimaryColor);
-        }
 
         .sidebar-create-drafts-button,
         .sidebar-dropzone-button {
+            background-color: var(--draftBgColor);
             height: 100%;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+
+            &:hover {
+                background-color: var(--primaryColor);
+                color: var(--fontOverPrimaryColor);
+            }
 
             .spinner {
                 display: inline-block;
@@ -85,13 +88,13 @@
         transition: all 0.15s ease;
 
         &:hover {
-            background: var(--emailBgColor);
+            background: var(--draftBgColor);
         }
 
         &.active {
             font-weight: 600;
             border-left-color: var(--primaryColor);
-            background: var(--emailBgColor);
+            background: var(--draftBgColor);
         }
     }
 }

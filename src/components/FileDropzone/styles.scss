@@ -4,12 +4,14 @@
 .dropzone-container {
     display: flex;
     padding: 4rem 0rem 0rem 0rem;
+    z-index: 2;
 
     &.showing-bulk-panel {
         padding: 0rem;
     }
 
     .dropzone {
+        background-color: var(--backgroundColor);
         border: 2px dashed var(--primaryColor);
         border-radius: 8px;
         padding: 30px;
