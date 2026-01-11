@@ -88,21 +88,22 @@ body {
             scroll-behavior: smooth;
         }
 
-        .content::before {
-            content: "";
-            position: fixed;
-            inset: 0;
+    }
 
-            background-image: url('./assets/bg.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+    .content-wrapper::before {
+        content: "";
+        position: fixed;
+        inset: 0;
 
-            opacity: 0.1;
+        background-image: url('./assets/bg.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
 
-            z-index: 0;
-            pointer-events: none;
-        }
+        opacity: 0.1;
+
+        z-index: 0;
+        pointer-events: none;
     }
 }
 
