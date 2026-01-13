@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+# File-Gmailer 📎📧
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**File-Gmailer** is a high-efficiency, privacy-focused web utility designed to transform local files into ready-to-send Gmail drafts instantly.
 
-Currently, two official plugins are available:
+By leveraging the **Gmail REST API**, it allows users to bulk-upload documents and prepare individual email metadata (**To, CC, Subject, Body**) using a specialized, distraction-free **“one-at-a-time”** drafting interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Bulk File Processing**  
+  Upload up to **50 files** simultaneously via an intuitive drag-and-drop zone.
 
-## Expanding the ESLint configuration
+- **One-at-a-Time Focus**  
+  A CSS `scroll-snap` layout ensures you focus on one draft at a time without visual clutter.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Privacy-First Architecture**  
+  **No database.** Your files never touch any server except Google’s.  
+  All processing happens entirely in your browser’s memory (RAM).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Sidebar Navigator**  
+  A professional, text-based sidebar that tracks your scroll position and allows you to jump between drafts instantly.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Bulk Options Overlay**  
+  A floating “Global” editor that lets you apply a single recipient, subject, or body to **all uploaded files** at once.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Rich Text Support**  
+  Powered by **Tiptap**, enabling full HTML formatting within email bodies.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Smart MIME Encoding**  
+  Automatically handles the conversion of binary files into Base64-encoded `multipart/mixed` email messages compatible with Gmail.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🛠️ Tech Stack
+
+- **Framework:** React + Vite
+- **Language:** TypeScript
+- **Styling:** SCSS (Modular / BEM-inspired)
+- **Authentication:** Google OAuth 2.0
+- **API:** Gmail REST API
+- **Rich Text Editor:** Tiptap
+- **Icons:** Material UI Icons
+
+---
+
+## 📖 How It Functions
+
+### 1. Data Handling
+
+When files are selected, the browser creates local `File` objects. These are stored in a React state array (`drafts`).
+
+Because there is **no backend database**, refreshing the page or closing the tab will immediately wipe all data.
+
+---
+
+### 2. Drafting Experience
+
+The app uses a combination of:
+
+- `scroll-snap-type`
+- scroll position detection
+
+As you scroll through drafts, the sidebar automatically updates its **active state** to show which file you are currently editing.
+
+---
+
+### 3. The Gmail Bridge
+
+When draft creation is triggered:
+
+1. The app reads the file as an `ArrayBuffer`
+2. Converts the buffer into a Base64 string
+3. Constructs a raw MIME message with headers:
+   - `To`
+   - `Subject`
+   - `Content-Type`
+4. Sends a direct `POST` request to the Gmail API
+
+No intermediary servers are involved.
+
+---
+
+## ⚙️ Setup & Installation
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/file-gmailer.git
+cd file-gmailer
 ```
