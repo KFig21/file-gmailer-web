@@ -1,4 +1,4 @@
-# File-Gmailer 📎📧
+# File-Gmailer
 
 **File-Gmailer** is a high-efficiency, privacy-focused web utility designed to transform local files into ready-to-send Gmail drafts instantly.
 
@@ -6,7 +6,7 @@ By leveraging the **Gmail REST API**, it allows users to bulk-upload documents a
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 - **Bulk File Processing**  
   Upload up to **50 files** simultaneously via an intuitive drag-and-drop zone.
@@ -32,7 +32,7 @@ By leveraging the **Gmail REST API**, it allows users to bulk-upload documents a
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework:** React + Vite
 - **Language:** TypeScript
@@ -44,7 +44,7 @@ By leveraging the **Gmail REST API**, it allows users to bulk-upload documents a
 
 ---
 
-## 📖 How It Functions
+## How It Functions
 
 ### 1. Data Handling
 
@@ -81,7 +81,7 @@ No intermediary servers are involved.
 
 ---
 
-## ⚙️ Setup & Installation
+## Setup & Installation
 
 ### Clone the Repository
 
@@ -89,3 +89,34 @@ No intermediary servers are involved.
 git clone https://github.com/your-username/file-gmailer.git
 cd file-gmailer
 ```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables Create a `.env` file in the root directory:
+
+```code snippet
+VITE_GOOGLE_CLIENT_ID=your_google_client_id_here
+```
+
+### Start Development
+
+```bash
+npm run dev
+```
+
+---
+
+## Security & Privacy
+
+- **Direct API Interaction:**
+  The app communicates directly with Google. No third-party servers ever see your files or email content.
+  
+- **Scoped Access:**
+  The app only requests gmail.compose permissions, meaning it can only create new drafts and cannot read your existing emails.
+  
+- **Stateless Session:**
+  All authentication tokens are kept in memory and are destroyed upon closing the browser tab.
