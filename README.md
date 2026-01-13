@@ -1,8 +1,6 @@
 # File-Gmailer
 
-**File-Gmailer** is a high-efficiency, privacy-focused web utility designed to transform local files into ready-to-send Gmail drafts instantly.
-
-By leveraging the **Gmail REST API**, it allows users to bulk-upload documents and prepare individual email metadata (**To, CC, Subject, Body**) using a specialized, distraction-free **“one-at-a-time”** drafting interface.
+**File-Gmailer** is a web tool designed to transform local files into ready-to-send Gmail drafts instantly. It allows users to bulk-upload documents, prepare individual email metadata (**To, CC, Subject, Body**), and generate gmail drafts leveraging the **Gmail REST API**.
 
 ---
 
@@ -19,13 +17,13 @@ By leveraging the **Gmail REST API**, it allows users to bulk-upload documents a
   All processing happens entirely in your browser’s memory (RAM).
 
 - **Sidebar Navigator**  
-  A professional, text-based sidebar that tracks your scroll position and allows you to jump between drafts instantly.
+  An intuitive sidebar that tracks your scroll position and allows you to jump between drafts instantly.
 
-- **Bulk Options Overlay**  
-  A floating “Global” editor that lets you apply a single recipient, subject, or body to **all uploaded files** at once.
+- **Bulk Editing**  
+  Bulk editing that lets you apply a single recipient, subject, or body to all uploaded files.
 
 - **Rich Text Support**  
-  Powered by **Tiptap**, enabling full HTML formatting within email bodies.
+  Full HTML formatting within email bodies.
 
 - **Smart MIME Encoding**  
   Automatically handles the conversion of binary files into Base64-encoded `multipart/mixed` email messages compatible with Gmail.
@@ -114,9 +112,7 @@ npm run dev
 
 - **Direct API Interaction:**
   The app communicates directly with Google. No third-party servers ever see your files or email content.
-  
 - **Scoped Access:**
   The app only requests gmail.compose permissions, meaning it can only create new drafts and cannot read your existing emails.
-  
 - **Stateless Session:**
   All authentication tokens are kept in memory and are destroyed upon closing the browser tab.
