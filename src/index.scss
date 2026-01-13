@@ -88,30 +88,33 @@ body {
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
 
-            .signature-container {
-                position: absolute;
-                bottom: 16px;
-                color: var(--fontColor);
-                text-decoration: none;
-                opacity: .25;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: row;
-                gap: 6px;
-                cursor: pointer;
-                transition: all ease .15s;
+        }
 
-                .signature-text {
-                    font-size: 1.25rem;
-                }
+        .signature-container {
+            position: absolute;
+            bottom: 16px;
+            right: 32px;
+            color: var(--fontColor);
+            text-decoration: none;
+            opacity: .25;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            gap: 6px;
+            cursor: pointer;
+            transition: all ease .15s;
 
-                &:hover {
-                    opacity: 1;
-                    color: var(--primaryColor);
-                }
-
+            &:hover {
+                opacity: 1;
+                color: var(--primaryColor);
             }
+
+            .github-icon {
+                height: 32px;
+                width: 32px;
+            }
+
         }
 
     }

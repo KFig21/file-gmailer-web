@@ -66,28 +66,6 @@
                 }
             }
         }
-
-        .signature-container {
-            color: var(--fontColor);
-            text-decoration: none;
-            opacity: .25;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-            gap: 6px;
-            cursor: pointer;
-            transition: all ease .15s;
-
-            .signature-text {
-                font-size: 1rem;
-            }
-
-            &:hover {
-                opacity: 1;
-                color: var(--primaryColor);
-            }
-        }
     }
 
     .sidebar-top {

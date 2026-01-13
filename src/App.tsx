@@ -185,18 +185,17 @@ function App() {
           )}
 
           {/* Signature */}
-          {drafts.length == 0 && (
-            <a
-              href="https://github.com/KFig21/file-gmailer-web/tree/main"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="signature-container"
-            >
-              <div className="signature-text">Made by KFig21</div>
-              <GitHubIcon className="github-icon" />
-            </a>
-          )}
         </div>
+        {/* {drafts.length == 0 && ( */}
+        <a
+          href="https://github.com/KFig21/file-gmailer-web/tree/main"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="signature-container"
+        >
+          <GitHubIcon className="github-icon" />
+        </a>
+        {/* )} */}
       </div>
     </div>
   );
