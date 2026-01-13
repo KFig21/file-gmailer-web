@@ -15,6 +15,7 @@ function App() {
   const [drafts, setDrafts] = useState<FileEmailDraft[]>([]);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const MAX_DRAFTS = 50;
 
   const login = useGoogleLogin({
     scope: 'https://www.googleapis.com/auth/gmail.compose',
@@ -22,16 +23,33 @@ function App() {
   });
 
   const addFiles = (files: File[]) => {
-    setDrafts((prev) => [
-      ...prev,
-      ...files.map((file) => ({
-        file,
-        to: '',
-        cc: '',
-        subject: '',
-        body: '',
-      })),
-    ]);
+    setDrafts((prev) => {
+      const remainingSlots = MAX_DRAFTS - prev.length;
+
+      if (remainingSlots <= 0) {
+        alert(`You can only upload up to ${MAX_DRAFTS} files.`);
+        return prev;
+      }
+
+      const filesToAdd = files.slice(0, remainingSlots);
+
+      if (filesToAdd.length < files.length) {
+        alert(
+          `Only ${filesToAdd.length} file(s) were added. Maximum of ${MAX_DRAFTS} drafts allowed.`,
+        );
+      }
+
+      return [
+        ...prev,
+        ...filesToAdd.map((file) => ({
+          file,
+          to: '',
+          cc: '',
+          subject: '',
+          body: '',
+        })),
+      ];
+    });
   };
 
   const updateDraft = (index: number, updated: FileEmailDraft) => {
@@ -62,6 +80,18 @@ function App() {
 
   const deleteDraft = (index: number) => {
     setDrafts((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const clearAllDrafts = () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete all drafts? This cannot be undone.',
+    );
+
+    if (!confirmed) return;
+
+    setDrafts([]);
+    setCurrentIndex(0);
+    draftRefs.current = [];
   };
 
   // Sidebar scrolling functionality
@@ -127,6 +157,7 @@ function App() {
           {drafts.length > 0 && (
             <EmailOptions
               onApply={(patch) => setDrafts((prev) => prev.map((d) => ({ ...d, ...patch })))}
+              onClearAll={clearAllDrafts}
             />
           )}
 

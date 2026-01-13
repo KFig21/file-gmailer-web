@@ -20,6 +20,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        position: relative;
 
         .email-options-header {
             display: flex;
@@ -27,6 +28,7 @@
             align-items: center;
             width: 100%;
             height: $headerHeight;
+            padding-left: 16px;
 
             .email-options-title {
                 font-size: 1.25rem;
@@ -149,9 +151,11 @@
                         transition: all 0.15s ease;
                         margin-top: 8px;
                         width: auto;
+                        outline: none;
 
                         &:hover,
-                        &:active {
+                        &:active,
+                        &:focus {
                             background-color: var(--primaryColor);
                             color: var(--fontOverPrimaryColor);
                             border: solid 1px var(--primaryColor);
@@ -159,6 +163,32 @@
                     }
                 }
 
+            }
+
+            .delete-all-drafts-container {
+                position: absolute;
+                bottom: 16px;
+                right: 16px;
+
+                button {
+                    background-color: var(--draftBgColor);
+                    color: var(--fontColor);
+                    outline: none;
+                    border: solid 1px crimson;
+                    padding: 0.6rem 1.2rem;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    opacity: .5;
+
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        background-color: crimson;
+                        color: white;
+                        border: solid 1px crimson;
+                        opacity: 1;
+                    }
+                }
             }
         }
     }

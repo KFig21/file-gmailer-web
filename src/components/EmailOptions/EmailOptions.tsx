@@ -15,9 +15,10 @@ type BulkPatch = {
 
 type Props = {
   onApply: (patch: BulkPatch) => void;
+  onClearAll: () => void;
 };
 
-export default function EmailOptions({ onApply }: Props) {
+export default function EmailOptions({ onApply, onClearAll }: Props) {
   const [useSingleTo, setUseSingleTo] = useState(false);
   const [useSingleCc, setUseSingleCc] = useState(false);
   const [useSingleSubject, setUseSingleSubject] = useState(false);
@@ -162,6 +163,11 @@ export default function EmailOptions({ onApply }: Props) {
               </button>
             </div>
           </label>
+
+          {/* DELETE ALL DRAFTS BUTTON */}
+          <div className="delete-all-drafts-container">
+            <button onClick={() => onClearAll()}>Delete all drafts</button>
+          </div>
         </div>
       </div>
     </div>

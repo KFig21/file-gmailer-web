@@ -28,16 +28,25 @@
         .sidebar-create-drafts-button,
         .sidebar-dropzone-button {
             background-color: var(--draftBgColor);
+            color: var(--fontColor);
             height: 100%;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
+            transition: all ease .15s;
 
             &:hover {
                 background-color: var(--primaryColor);
                 color: var(--fontOverPrimaryColor);
+            }
+
+            &.disabled {
+                &:hover {
+                    background-color: var(--backgroundColor);
+                    color: var(--fontColor);
+                }
             }
 
             .spinner {

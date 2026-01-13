@@ -23,11 +23,12 @@ export default function DraftNavigator({
     <div className="sidebar-wrapper">
       {/* TOP BUTTON */}
       <div className="sidebar-top">
-        <label className="sidebar-dropzone-button">
-          Choose files
+        <label className={`sidebar-dropzone-button ${drafts.length >= 50 ? 'disabled' : ''}`}>
+          {drafts.length >= 50 ? 'Max files reached' : 'Choose files'}
           <input
             type="file"
             multiple
+            disabled={drafts.length >= 50}
             onChange={(e) => e.target.files && onFilesAdded(Array.from(e.target.files))}
             hidden
           />
