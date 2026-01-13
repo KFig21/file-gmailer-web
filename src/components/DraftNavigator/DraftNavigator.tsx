@@ -1,5 +1,5 @@
 // src/components/DraftNavigator/DraftNavigator.tsx
-
+import GitHubIcon from '@mui/icons-material/GitHub';
 import './styles.scss';
 
 type Props = {
@@ -53,6 +53,17 @@ export default function DraftNavigator({
         <div className="sidebar-create-drafts-button" onClick={createAllDrafts}>
           {loading ? <span className="spinner" /> : 'Create drafts'}
         </div>
+      </div>
+      <div className="sidebar-bottom">
+        <a
+          href="https://github.com/KFig21/file-gmailer-web/tree/main"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="signature-container"
+        >
+          <div className="signature-text">Made by KFig21</div>
+          <GitHubIcon className="github-icon" />
+        </a>
       </div>
     </div>
   );

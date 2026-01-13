@@ -10,6 +10,7 @@ import './index.scss';
 import EmailOptions from './components/EmailOptions/EmailOptions';
 import HeaderSignInButton from './components/HeaderSignInButton/HeaderSignInButton';
 import DraftNavigator from './components/DraftNavigator/DraftNavigator';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 function App() {
   const [drafts, setDrafts] = useState<FileEmailDraft[]>([]);
@@ -183,8 +184,18 @@ function App() {
             <FileDropzone onFilesAdded={addFiles} isDrafts={drafts.length > 0} />
           )}
 
-          {/* Create drafts button */}
-          {/* {drafts.length > 0 && <CreateDraftsButton onClick={createAllDrafts} loading={loading} />} */}
+          {/* Signature */}
+          {drafts.length == 0 && (
+            <a
+              href="https://github.com/KFig21/file-gmailer-web/tree/main"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="signature-container"
+            >
+              <div className="signature-text">Made by KFig21</div>
+              <GitHubIcon className="github-icon" />
+            </a>
+          )}
         </div>
       </div>
     </div>
