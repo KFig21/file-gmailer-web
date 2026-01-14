@@ -10,6 +10,8 @@
 
     --primaryColor: rgb(132, 159, 212);
     --fontOverPrimaryColor: rgb(0, 0, 0);
+
+    --backgroundImageOpacity: .18;
 }
 
 [data-theme='light'] {
@@ -23,6 +25,8 @@
 
     --primaryColor: rgb(70, 120, 220);
     --fontOverPrimaryColor: rgb(244, 244, 244);
+
+    --backgroundImageOpacity: .07;
 }
 
 [data-theme='night'] {
@@ -36,4 +40,6 @@
 
     --primaryColor: rgb(70, 140, 220);
     --fontOverPrimaryColor: rgb(0, 0, 0);
+
+    --backgroundImageOpacity: .18;
 }
