@@ -24,3 +24,16 @@
     --primaryColor: rgb(70, 120, 220);
     --fontOverPrimaryColor: rgb(244, 244, 244);
 }
+
+[data-theme='night'] {
+    --borderColor: rgb(110, 110, 110);
+    --backgroundColor: rgb(32, 32, 32);
+    --headerBgColor: rgba(41, 41, 41, 0.7);
+    --draftBgColor: rgb(65, 65, 65);
+    --draftShadowColor: rgba(0, 0, 0, 0.6);
+
+    --fontColor: rgb(236, 236, 236);
+
+    --primaryColor: rgb(70, 140, 220);
+    --fontOverPrimaryColor: rgb(0, 0, 0);
+}

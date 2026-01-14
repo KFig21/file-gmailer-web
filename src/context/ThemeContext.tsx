@@ -21,12 +21,12 @@ export const useTheme = () => {
 const THEME_STORAGE_KEY = 'app-theme';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const themes = ['dark', 'light'];
+  const themes = ['night', 'light'];
 
   // 👇 initialize from localStorage
   const [theme, setThemeState] = useState<string>(() => {
     const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    return storedTheme && themes.includes(storedTheme) ? storedTheme : 'dark';
+    return storedTheme && themes.includes(storedTheme) ? storedTheme : 'night';
   });
 
   const setTheme = (newTheme: string) => {

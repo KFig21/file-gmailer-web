@@ -139,7 +139,7 @@ body {
 // custom scrollbar
 // scrollbar
 ::-webkit-scrollbar {
-    width: 14px;
+    width: 16px;
     // height: 14px;
 }
 
@@ -151,7 +151,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background-color: var(--primaryColor);
-    border: solid 4px transparent;
+    border: solid 5px transparent;
     // border-radius: 20px;
     background-clip: content-box;
 }
