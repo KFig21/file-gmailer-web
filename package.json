@@ -1,6 +1,5 @@
 {
   "name": "file-gmailer-web",
-  "homepage": "https://kfig21.github.io/file-gmailer-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,9 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
-    "start": "node server.js",
-    "deploy": "gh-pages -d dist"
+    "start": "node server.js"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
