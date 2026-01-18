@@ -124,12 +124,12 @@ body {
         position: fixed;
         inset: 0;
 
-        background-image: url('./assets/bg.png');
+        background-image: url('./assets/bg-compressed.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
 
-        opacity: 0.1;
+        opacity: var(--backgroundImageOpacity);
 
         z-index: 0;
         pointer-events: none;
