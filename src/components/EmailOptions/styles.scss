@@ -4,7 +4,7 @@
 .email-options-wrapper {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     background-color: var(--headerBgColor);
     border-bottom: solid 1px var(--borderColor);
@@ -12,6 +12,7 @@
     position: sticky;
     top: 0;
     z-index: 3;
+    max-height: 90%;
     // box-shadow: 10px 0px 10px 5px rgba(0, 0, 0, 0.12);
 
     .email-options-container {
