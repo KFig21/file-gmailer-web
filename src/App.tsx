@@ -188,7 +188,7 @@ function App() {
         </div>
         {/* {drafts.length == 0 && ( */}
         <a
-          href="https://github.com/KFig21/file-gmailer-web/tree/main"
+          href="https://github.com/KFig21"
           target="_blank"
           rel="noopener noreferrer"
           className="signature-container"
