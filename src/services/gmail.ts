@@ -1,3 +1,5 @@
+import type { FileEmailDraft } from '../types';
+
 function arrayBufferToBase64(buffer: ArrayBuffer) {
   let binary = '';
   const bytes = new Uint8Array(buffer);
@@ -10,16 +12,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
   return btoa(binary);
 }
 
-export async function createDraft(
-  accessToken: string,
-  draft: {
-    to?: string;
-    cc?: string;
-    subject?: string;
-    body?: string;
-    file: File;
-  },
-) {
+export async function createDraft(accessToken: string, draft: FileEmailDraft) {
   const boundary = 'foo_bar_baz';
   const buffer = await draft.file.arrayBuffer();
   const encodedFile = arrayBufferToBase64(buffer);
