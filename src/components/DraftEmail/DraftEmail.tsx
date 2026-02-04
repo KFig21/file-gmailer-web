@@ -2,13 +2,6 @@ import type { FileEmailDraft } from '../../types';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import './styles.scss';
 import { useEffect } from 'react';
-// import {
-//   CloseIcon,
-//   ExitFullScreenIcon,
-//   FullScreenIcon,
-//   MinusIcon,
-//   PlusIcon,
-// } from '../../elements/WindowOptionIcons/Icons';
 import { EditorContent } from '@tiptap/react';
 import { MenuBar } from '../Shared/MenuBar';
 import { useTiptapConfig } from '../../hooks/useTiptapConfig';
@@ -23,9 +16,6 @@ type Props = {
 };
 
 export default function DraftEmail({ draft, onChange, onDelete, innerRef, index }: Props) {
-  // const [collapse, setCollapse] = useState(false);
-  // const [full, setFull] = useState(false);
-
   const editor = useTiptapConfig(draft.body ?? '', (html) => {
     onChange({ ...draft, body: html });
   });
