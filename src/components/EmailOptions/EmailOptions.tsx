@@ -14,7 +14,7 @@ type BulkPatch = {
 };
 
 type Props = {
-  onApply: (patch: BulkPatch) => void;
+  onApply: (patch: BulkPatch) => boolean;
   onClearAll: () => void;
 };
 
@@ -34,13 +34,42 @@ export default function EmailOptions({ onApply, onClearAll }: Props) {
   // Initialize Tiptap for Bulk Options
   const editor = useTiptapConfig(body, (html) => setBody(html));
 
+  // Flag to track if any bulk option fields are selected
+  const noneSelected = !useSingleTo && !useSingleCc && !useSingleSubject && !useSingleBody;
+
+  // Helper function to reset the bulk editor fields
+  const resetBulkEditor = () => {
+    setUseSingleTo(false);
+    setUseSingleCc(false);
+    setUseSingleSubject(false);
+    setUseSingleBody(false);
+    setTo('');
+    setCc('');
+    setSubject('');
+    setBody('');
+    editor?.commands.setContent('');
+  };
+
   const apply = () => {
-    onApply({
+    const success = onApply({
       ...(useSingleTo && { to }),
       ...(useSingleCc && { cc }),
       ...(useSingleSubject && { subject }),
-      ...(useSingleBody && { body }), // 'body' is now the HTML string from Tiptap
+      ...(useSingleBody && { body }),
     });
+
+    if (success) {
+      // 2. Success/Failure window + asking to clear
+      const shouldClear = window.confirm(
+        'Bulk changes applied successfully!\n\nWould you like to clear the Bulk Options editor now?',
+      );
+
+      if (shouldClear) {
+        resetBulkEditor();
+      }
+    } else {
+      alert('Failed to apply bulk changes.');
+    }
   };
 
   useEffect(() => {
@@ -82,11 +111,13 @@ export default function EmailOptions({ onApply, onClearAll }: Props) {
               />
               <span className="checkbox" />
             </label>
-            <span className="checkbox-label">Single recipient</span>
+            <span className={`checkbox-label ${useSingleTo ? 'active' : 'inactive'}`}>
+              Single recipient
+            </span>
             <input
               type="email"
               placeholder="to@example.com"
-              disabled={!useSingleTo}
+              // disabled={!useSingleTo}
               value={to}
               onChange={(e) => setTo(e.target.value)}
             />
@@ -102,13 +133,13 @@ export default function EmailOptions({ onApply, onClearAll }: Props) {
               />
               <span className="checkbox" />
             </label>
-
-            <span className="checkbox-label">Single CC</span>
-
+            <span className={`checkbox-label ${useSingleCc ? 'active' : 'inactive'}`}>
+              Single CC
+            </span>
             <input
               type="email"
               placeholder="cc@example.com"
-              disabled={!useSingleCc}
+              // disabled={!useSingleCc}
               value={cc}
               onChange={(e) => setCc(e.target.value)}
             />
@@ -124,11 +155,13 @@ export default function EmailOptions({ onApply, onClearAll }: Props) {
               />
               <span className="checkbox" />
             </label>
-            <span className="checkbox-label">Single Subject</span>
+            <span className={`checkbox-label ${useSingleSubject ? 'active' : 'inactive'}`}>
+              Single Subject
+            </span>
             <input
               type="text"
               placeholder="Subject line"
-              disabled={!useSingleSubject}
+              // disabled={!useSingleSubject}
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
             />
@@ -144,10 +177,12 @@ export default function EmailOptions({ onApply, onClearAll }: Props) {
               />
               <span className="checkbox" />
             </label>
-            <span className="checkbox-label">Single body</span>
+            <span className={`checkbox-label ${useSingleBody ? 'active' : 'inactive'}`}>
+              Single body
+            </span>
 
             {/* Moved the editor OUTSIDE the label */}
-            <div className={`tiptap-editor-container bulk ${!useSingleBody ? 'disabled' : ''}`}>
+            <div className={`tiptap-editor-container bulk`}>
               <MenuBar editor={editor} />
               <EditorContent editor={editor} className="tiptap-content" />
             </div>
@@ -156,10 +191,14 @@ export default function EmailOptions({ onApply, onClearAll }: Props) {
           {/* apply button */}
           <label className="option-row">
             <label className="checkbox-wrapper"></label>
-            <span className="checkbox-label"></span>
+            <span className={`checkbox-label`}></span>
             <div className="apply-button-container">
-              <button className="apply-button" onClick={apply}>
-                Apply to all emails
+              <button
+                className={`apply-button ${noneSelected && 'disabled'}`}
+                onClick={apply}
+                disabled={noneSelected}
+              >
+                {noneSelected ? 'Select an option to apply' : 'Apply to all emails'}
               </button>
             </div>
           </label>

@@ -23,6 +23,7 @@ function App() {
     onSuccess: (token) => setAccessToken(token.access_token),
   });
 
+  // Add files to drafts
   const addFiles = (files: File[]) => {
     setDrafts((prev) => {
       const remainingSlots = MAX_DRAFTS - prev.length;
@@ -53,8 +54,21 @@ function App() {
     });
   };
 
+  // Update a single draft
   const updateDraft = (index: number, updated: FileEmailDraft) => {
     setDrafts((prev) => prev.map((d, i) => (i === index ? updated : d)));
+  };
+
+  // Apply bulk changes to all drafts
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleApplyBulk = (patch: any) => {
+    try {
+      setDrafts((prev) => prev.map((d) => ({ ...d, ...patch })));
+      return true; // Return true to indicate state update started successfully
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   };
 
   const createAllDrafts = async () => {
@@ -156,10 +170,7 @@ function App() {
         <div className="content" onScroll={handleScroll}>
           {/* Email options */}
           {drafts.length > 0 && (
-            <EmailOptions
-              onApply={(patch) => setDrafts((prev) => prev.map((d) => ({ ...d, ...patch })))}
-              onClearAll={clearAllDrafts}
-            />
+            <EmailOptions onApply={handleApplyBulk} onClearAll={clearAllDrafts} />
           )}
 
           {/* Draft emails */}

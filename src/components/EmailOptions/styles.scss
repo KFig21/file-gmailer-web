@@ -20,7 +20,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        // align-items: center;
         justify-content: center;
         position: relative;
 
@@ -30,9 +30,10 @@
             align-items: center;
             width: 100%;
             height: $headerHeight;
-            padding-left: 16px;
+            padding-left: 10px;
 
             .email-options-title {
+                padding-left: 6px;
                 font-size: 1.25rem;
                 width: 100%;
                 font-weight: 600;
@@ -122,6 +123,15 @@
                     height: 34px;
                     display: flex;
                     align-items: center;
+                    color: var(--fontColor);
+
+                    &.active {
+                        opacity: 1;
+                    }
+
+                    &.inactive {
+                        opacity: 0.5;
+                    }
                 }
 
 
@@ -132,6 +142,12 @@
                     padding: 0.5rem 1rem;
                     border: solid 1px var(--borderColor);
                     border-radius: 8px;
+
+                    &:active,
+                    &:focus {
+                        border: solid 1px var(--primaryColor);
+                        outline: solid 1px var(--primaryColor);
+                    }
                 }
 
                 .apply-button-container {
@@ -161,6 +177,19 @@
                             background-color: var(--primaryColor);
                             color: var(--fontOverPrimaryColor);
                             border: solid 1px var(--primaryColor);
+                        }
+
+                        &.disabled {
+                            opacity: .5;
+                            cursor: not-allowed;
+
+                            &:hover,
+                            &:active,
+                            &:focus {
+                                background-color: var(--backgroundColor);
+                                color: var(--fontColor);
+                                border: solid 1px var(--borderColor);
+                            }
                         }
                     }
                 }
