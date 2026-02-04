@@ -4,6 +4,12 @@
 
 ---
 
+## Live Demo
+
+**[Check out the live application here](https://kfig21.github.io/file-gmailer-web/)** 👀
+
+---
+
 ## Key Features
 
 - **Bulk File Processing**  
